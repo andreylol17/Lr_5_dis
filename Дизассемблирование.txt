@@ -1,0 +1,186 @@
+  0           RESUME                   0
+
+  1           LOAD_CONST               0 (0)
+              LOAD_CONST               1 (None)
+              IMPORT_NAME              0 (numpy)
+              STORE_NAME               1 (np)
+
+  4           LOAD_CONST               2 (<code object solve_system at 0x5df87bfc4cc0, file "example.py", line 4>)
+              MAKE_FUNCTION
+              STORE_NAME               2 (solve_system)
+              RETURN_CONST             1 (None)
+
+Disassembly of <code object solve_system at 0x5df87bfc4cc0, file "example.py", line 4>:
+  4           RESUME                   0
+
+  5           LOAD_FAST                0 (matrix)
+              LOAD_ATTR                0 (shape)
+              LOAD_CONST               1 (0)
+              BINARY_SUBSCR
+              STORE_FAST               1 (rows)
+
+  8           LOAD_GLOBAL              3 (range + NULL)
+              LOAD_FAST                1 (rows)
+              CALL                     1
+              GET_ITER
+      L1:     FOR_ITER               187 (to L6)
+              STORE_FAST               2 (i)
+
+  9           LOAD_GLOBAL              4 (np)
+              LOAD_ATTR                6 (argmax)
+              PUSH_NULL
+              LOAD_GLOBAL              4 (np)
+              LOAD_ATTR                8 (abs)
+              PUSH_NULL
+              LOAD_FAST_LOAD_FAST      2 (matrix, i)
+              LOAD_CONST               0 (None)
+              BUILD_SLICE              2
+              LOAD_FAST                2 (i)
+              BUILD_TUPLE              2
+              BINARY_SUBSCR
+              CALL                     1
+              CALL                     1
+              LOAD_FAST                2 (i)
+              BINARY_OP                0 (+)
+              STORE_FAST               3 (max_row_idx)
+
+ 10           LOAD_FAST_LOAD_FAST      3 (matrix, max_row_idx)
+              BINARY_SUBSCR
+              LOAD_FAST                2 (i)
+              BINARY_SUBSCR
+              LOAD_CONST               1 (0)
+              COMPARE_OP              88 (bool(==))
+              POP_JUMP_IF_FALSE       58 (to L3)
+
+ 11           LOAD_GLOBAL              4 (np)
+              LOAD_ATTR               10 (all)
+              PUSH_NULL
+              LOAD_FAST_LOAD_FAST      2 (matrix, i)
+              LOAD_CONST               0 (None)
+              BUILD_SLICE              2
+              LOAD_CONST               2 (-1)
+              BUILD_TUPLE              2
+              BINARY_SUBSCR
+              LOAD_CONST               1 (0)
+              COMPARE_OP              72 (==)
+              CALL                     1
+              TO_BOOL
+              POP_JUMP_IF_FALSE       11 (to L2)
+
+ 12           LOAD_GLOBAL             13 (ValueError + NULL)
+              LOAD_CONST               3 ('Система имеет бесконечно много решений.')
+              CALL                     1
+              RAISE_VARARGS            1
+
+ 14   L2:     LOAD_GLOBAL             13 (ValueError + NULL)
+              LOAD_CONST               4 ('Нет решений для данной системы.')
+              CALL                     1
+              RAISE_VARARGS            1
+
+ 15   L3:     LOAD_FAST_LOAD_FAST      3 (matrix, max_row_idx)
+              LOAD_FAST                2 (i)
+              BUILD_LIST               2
+              BINARY_SUBSCR
+              LOAD_FAST_LOAD_FAST      2 (matrix, i)
+              LOAD_FAST                3 (max_row_idx)
+              BUILD_LIST               2
+              STORE_SUBSCR
+
+ 16           LOAD_GLOBAL              3 (range + NULL)
+              LOAD_FAST                2 (i)
+              LOAD_CONST               5 (1)
+              BINARY_OP                0 (+)
+              LOAD_FAST                1 (rows)
+              CALL                     2
+              GET_ITER
+      L4:     FOR_ITER                35 (to L5)
+              STORE_FAST               4 (j)
+
+ 17           LOAD_FAST_LOAD_FAST      4 (matrix, j)
+              BINARY_SUBSCR
+              LOAD_FAST                2 (i)
+              BINARY_SUBSCR
+              LOAD_FAST_LOAD_FAST      2 (matrix, i)
+              BINARY_SUBSCR
+              LOAD_FAST                2 (i)
+              BINARY_SUBSCR
+              BINARY_OP               11 (/)
+              STORE_FAST               5 (multiplier)
+
+ 18           LOAD_FAST_LOAD_FAST      4 (matrix, j)
+              COPY                     2
+              COPY                     2
+              BINARY_SUBSCR
+              LOAD_FAST_LOAD_FAST     80 (multiplier, matrix)
+              LOAD_FAST                2 (i)
+              BINARY_SUBSCR
+              BINARY_OP                5 (*)
+              BINARY_OP               23 (-=)
+              SWAP                     3
+              SWAP                     2
+              STORE_SUBSCR
+              JUMP_BACKWARD           37 (to L4)
+
+ 16   L5:     END_FOR
+              POP_TOP
+              JUMP_BACKWARD          189 (to L1)
+
+  8   L6:     END_FOR
+              POP_TOP
+
+ 21           LOAD_GLOBAL              4 (np)
+              LOAD_ATTR               14 (zeros)
+              PUSH_NULL
+              LOAD_FAST                1 (rows)
+              CALL                     1
+              STORE_FAST               6 (result)
+
+ 22           LOAD_GLOBAL              3 (range + NULL)
+              LOAD_FAST                1 (rows)
+              LOAD_CONST               5 (1)
+              BINARY_OP               10 (-)
+              LOAD_CONST               2 (-1)
+              LOAD_CONST               2 (-1)
+              CALL                     3
+              GET_ITER
+      L7:     FOR_ITER                62 (to L9)
+              STORE_FAST               2 (i)
+
+ 23           LOAD_FAST_LOAD_FAST      2 (matrix, i)
+              BINARY_SUBSCR
+              LOAD_FAST                2 (i)
+              BINARY_SUBSCR
+              LOAD_CONST               1 (0)
+              COMPARE_OP             119 (bool(!=))
+              POP_JUMP_IF_TRUE         2 (to L8)
+              JUMP_BACKWARD           16 (to L7)
+
+ 24   L8:     LOAD_FAST_LOAD_FAST      2 (matrix, i)
+              BINARY_SUBSCR
+              LOAD_CONST               2 (-1)
+              BINARY_SUBSCR
+              LOAD_GLOBAL              4 (np)
+              LOAD_ATTR               16 (dot)
+              PUSH_NULL
+              LOAD_FAST_LOAD_FAST      2 (matrix, i)
+              BINARY_SUBSCR
+              LOAD_CONST               0 (None)
+              LOAD_CONST               2 (-1)
+              BINARY_SLICE
+              LOAD_FAST                6 (result)
+              CALL                     2
+              BINARY_OP               10 (-)
+              LOAD_FAST_LOAD_FAST      2 (matrix, i)
+              BINARY_SUBSCR
+              LOAD_FAST                2 (i)
+              BINARY_SUBSCR
+              BINARY_OP               11 (/)
+              LOAD_FAST_LOAD_FAST     98 (result, i)
+              STORE_SUBSCR
+              JUMP_BACKWARD           64 (to L7)
+
+ 22   L9:     END_FOR
+              POP_TOP
+
+ 26           LOAD_FAST                6 (result)
+              RETURN_VALUE
